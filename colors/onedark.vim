@@ -241,7 +241,11 @@ call s:h("MatchParen", { "fg": s:blue, "gui": "underline", "cterm": "underline" 
 call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
 call s:h("MoreMsg", {}) " more-prompt
 call s:h("NonText", { "fg": s:special_grey }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).
-call s:h("Normal", { "fg": s:foreground, "bg": s:background }) " normal text
+if exists("g:onedark_transparent_bg") && g:onedark_transparent_bg == 1
+  call s:h("Normal", { "fg": s:foreground, "bg": {"gui": "NONE", "cterm": "NONE", "cterm16": "NONE"} }) " normal text
+else
+  call s:h("Normal", { "fg": s:foreground, "bg": s:background }) " normal text
+endif
 call s:h("Pmenu", { "fg": s:white, "bg": s:menu_grey }) " Popup menu: normal item.
 call s:h("PmenuSel", { "fg": s:cursor_grey, "bg": s:blue }) " Popup menu: selected item.
 call s:h("PmenuSbar", { "bg": s:cursor_grey }) " Popup menu: scrollbar.

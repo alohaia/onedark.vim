@@ -27,6 +27,14 @@ function! airline#themes#onedark#refresh()
     let s:term_visual_grey = s:colors.visual_grey.cterm
   endif
 
+  if exists("g:onedark_transparent_bg") && g:onedark_transparent_bg == 1
+    let s:o_visual_grey_gui = "NONE"
+    let s:o_cursor_grey_gui = "NONE"
+  else
+    let s:o_visual_grey_gui = s:colors.visual_grey.gui
+    let s:o_cursor_grey_gui = s:colors.cursor_grey.gui
+  endif
+
   let g:airline#themes#onedark#palette = {}
 
   let g:airline#themes#onedark#palette.accents = {
@@ -34,8 +42,8 @@ function! airline#themes#onedark#refresh()
         \ }
 
   let s:N1 = [ s:colors.cursor_grey.gui, s:colors.green.gui, s:term_cursor_grey, s:term_green ]
-  let s:N2 = [ s:colors.white.gui, s:colors.visual_grey.gui, s:term_white, s:term_visual_grey ]
-  let s:N3 = [ s:colors.green.gui, s:colors.cursor_grey.gui, s:term_green, s:term_cursor_grey ]
+  let s:N2 = [ s:colors.white.gui, s:o_visual_grey_gui, s:term_white, s:term_visual_grey ]
+  let s:N3 = [ s:colors.green.gui, s:o_cursor_grey_gui, s:term_green, s:term_cursor_grey ]
   let g:airline#themes#onedark#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
 
   let group = airline#themes#get_highlight('vimCommand')
@@ -45,24 +53,24 @@ function! airline#themes#onedark#refresh()
 
   let s:I1 = [ s:colors.cursor_grey.gui, s:colors.blue.gui, s:term_cursor_grey, s:term_blue ]
   let s:I2 = s:N2
-  let s:I3 = [ s:colors.blue.gui, s:colors.cursor_grey.gui, s:term_blue, '' ]
+  let s:I3 = [ s:colors.blue.gui, s:o_cursor_grey_gui, s:term_blue, '' ]
   let g:airline#themes#onedark#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
   let g:airline#themes#onedark#palette.insert_modified = g:airline#themes#onedark#palette.normal_modified
 
   let s:R1 = [ s:colors.cursor_grey.gui, s:colors.red.gui, s:term_cursor_grey, s:term_red ]
   let s:R2 = s:N2
-  let s:R3 = [ s:colors.red.gui, s:colors.cursor_grey.gui, s:term_red, '' ]
+  let s:R3 = [ s:colors.red.gui, s:o_cursor_grey_gui, s:term_red, '' ]
   let g:airline#themes#onedark#palette.replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3)
   let g:airline#themes#onedark#palette.replace_modified = g:airline#themes#onedark#palette.normal_modified
 
   let s:V1 = [ s:colors.cursor_grey.gui, s:colors.purple.gui, s:term_cursor_grey, s:term_purple ]
   let s:V2 = s:N2
-  let s:V3 = [ s:colors.purple.gui, s:colors.cursor_grey.gui, s:term_purple, '' ]
+  let s:V3 = [ s:colors.purple.gui, s:o_cursor_grey_gui, s:term_purple, '' ]
   let g:airline#themes#onedark#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
   let g:airline#themes#onedark#palette.visual_modified = g:airline#themes#onedark#palette.normal_modified
 
   let s:IA1 = [ s:colors.cursor_grey.gui, s:colors.white.gui, s:term_cursor_grey, s:term_white ]
-  let s:IA2 = [ s:colors.white.gui, s:colors.visual_grey.gui, s:term_white, s:term_visual_grey ]
+  let s:IA2 = [ s:colors.white.gui, s:o_visual_grey_gui, s:term_white, s:term_visual_grey ]
   let s:IA3 = s:N2
   let g:airline#themes#onedark#palette.inactive = airline#themes#generate_color_map(s:IA1, s:IA2, s:IA3)
   let g:airline#themes#onedark#palette.inactive_modified = {
